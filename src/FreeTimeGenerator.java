@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -193,6 +192,7 @@ public class FreeTimeGenerator {
     
     //Use two loops within a for loop to obtain free time blocks from the map.
     for (int i = 0; i < icsList.size(); i++){
+    	
       //Store the current mapIndex as the start time of this free block.
       startTimes.add(mapIndex);
       
@@ -263,7 +263,10 @@ public class FreeTimeGenerator {
       dtend = ("DTEND:" + this.getDtendDate(icsList.get(i)) + "T" + stringEndHour + stringEndMinute + "00");
       
       icsEvent freeTime = new icsEvent("SUMMARY:FREE TIME", "LOCATION:N/A", "CLASSIFICATION:PUBLIC", "PRIORITY:0", dtstart, dtend);
-      freeTime.writeIcsFile(freeTime, ("freetime" + (i + 1) + ".ics"));
+      
+      if (Integer.parseInt(stringEndHour + stringEndMinute) - Integer.parseInt((stringStartHour + stringStartMinute)) != 0){
+        freeTime.writeIcsFile(freeTime, ("freetime" + (i + 1) + ".ics"));        
+      }
     }
   }
   
@@ -360,7 +363,10 @@ public class FreeTimeGenerator {
       dtend = ("DTEND:" + this.getDtendDate(icsListA.get(i)) + "T" + stringEndHour + stringEndMinute + "00");
       
       icsEvent freeTime = new icsEvent("SUMMARY:POSSIBLE MEETING TIME", "LOCATION:TBA", "CLASSIFICATION:PUBLIC", "PRIORITY:0", dtstart, dtend);
-      freeTime.writeIcsFile(freeTime, ("meetingtime" + (i + 1) + ".ics"));
+      
+      if (Integer.parseInt(stringEndHour + stringEndMinute) - Integer.parseInt((stringStartHour + stringStartMinute)) != 0){
+        freeTime.writeIcsFile(freeTime, ("meetingtime" + (i + 1) + ".ics"));        
+      }
     }
   }
   
